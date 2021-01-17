@@ -3,6 +3,7 @@ const express = require("express");
 
 const PerfilController = require("./controllers/PerfilController");
 const DasbordController = require("./controllers/DasbordController");
+const MeuprojeController = require("./controllers/MeusProjctController");
 
 const routes = express.Router();
 
@@ -17,6 +18,11 @@ routes.post("/basbord", DasbordController.create);
 routes.get("/basbord", DasbordController.index);
 routes.delete("/basbord/:id", DasbordController.delete);
 routes.put("/basbord/:id", DasbordController.atualiza);
+
+routes.post("/meuprojectos", MeuprojeController.create);
+routes.get("/meuprojectos", MeuprojeController.index);
+routes.delete("/meuprojectos/:id", MeuprojeController.delete);
+routes.put("/meuprojectos/:id", MeuprojeController.atualiza);
 
 
 module.exports = routes;

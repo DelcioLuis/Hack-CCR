@@ -30,7 +30,7 @@ module.exports = {
     } = request.body;
 
     try{
-      const verficar = await connection("projectos").where({id}).select("*")
+      const verficar = await connection("projectos").where({nome}).select("*")
       
       if(verficar.length >=1){
 

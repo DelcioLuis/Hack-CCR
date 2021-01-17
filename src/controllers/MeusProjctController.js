@@ -6,17 +6,11 @@ const  connection = require("../database/connections");
 module.exports = {
 
   async index(request, response){
-    
-    const {email, senha} = request.body;
 
     try{
-      const Login = await connection("perfil").where({email}).select("*").first()
+      const meuprojecto = await connection("meuprojecto").select("*")
 
-      if(Login.senha !== senha){
-        return response.status(401).json({ error: 'Operacao Recusada.' })
-      }
-
-      return response.json(Login)
+      return response.json(meuprojecto)
     }catch{
       return response.status(401).json({ error: 'Operacao Recusada.' })
     }
@@ -24,46 +18,42 @@ module.exports = {
   },
 
   async create(request, response){
-        
+
     const {
       nome,
-      nascimento,
-      genero,
-      uf,
-      cidade,
-      prodcultural,
-      telefone,
-      email,
-      senha,
+      edital,
+      abertura,
+      encerramento,
+      progresso,
+      pendecias,
+      id,
+      modicacao
     } = request.body;
 
-    const id = crypto.randomBytes(9).toString("HEX");
-
-    try{
-      const verficar = await connection("perfil").where({email}).select("*")
+    //try{
+      const verficar = await connection("meuprojecto").where({nome}).select("*")
       
       if(verficar.length >=1){
 
         return response.status(401).json({ error: 'Operacao Recusada.'})
 
       }
-      const conta = await connection("perfil").insert({
+      const conta = await connection("meuprojecto").insert({
         id,
         nome,
-        nascimento,
-        genero,
-        uf,
-        cidade,
-        prodcultural,
-        telefone,
-        email,
-        senha,
+        edital,
+        abertura,
+        modicacao,
+        encerramento,
+        progresso,
+        pendecias,
+        modicacao
       })
       return response.json(id)
       
-    }catch{
-      return response.status(401).json({ error: 'Operacao Recusada.' })
-    }
+    //}catch{
+    //  return response.status(401).json({ error: 'Operacao Recusada.' })
+    //}
   },
 
 
