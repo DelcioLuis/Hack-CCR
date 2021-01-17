@@ -8,9 +8,9 @@ module.exports = {
   async index(request, response){
 
     try{
-      const meuprojecto = await connection("meuprojecto").select("*")
+      const mentorias = await connection("mentorias").select("*")
 
-      return response.json(meuprojecto)
+      return response.json(mentorias)
     }catch{
       return response.status(401).json({ error: 'Operacao Recusada.' })
     }
@@ -21,33 +21,25 @@ module.exports = {
 
     const {
       nome,
-      edital,
-      abertura,
-      encerramento,
-      progresso,
-      pendecias,
+      profissao,
+      sector,
       id,
-      modicacao
+      
     } = request.body;
 
     try{
-      const verficar = await connection("meuprojecto").where({nome}).select("*")
+      const verficar = await connection("mentorias").where({nome}).select("*")
       
       if(verficar.length >=1){
 
         return response.status(401).json({ error: 'Operacao Recusada.'})
 
       }
-      const conta = await connection("meuprojecto").insert({
+      const conta = await connection("mentorias").insert({
         id,
         nome,
-        edital,
-        abertura,
-        modicacao,
-        encerramento,
-        progresso,
-        pendecias,
-        modicacao
+        profissao,
+        sector,
       })
       return response.json(id)
       
